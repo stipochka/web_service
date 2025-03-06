@@ -8,6 +8,7 @@ import (
 	"github.com/stipochka/web_service/internal/models"
 )
 
+//go:generate mockery --name=GrpcClient --output=../mocks --outpkg=mocks
 type GrpcClient interface {
 	GetAllRecords(ctx context.Context) ([]models.Record, error)
 	GetRecordById(ctx context.Context, id int) (models.Record, error)

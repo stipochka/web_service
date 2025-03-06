@@ -2,16 +2,12 @@ package handler
 
 import (
 	"context"
-	"errors"
 	"log/slog"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stipochka/web_service/internal/models"
-)
-
-const (
-	mcuCtx = "mcuId"
 )
 
 type errorResponse struct {
@@ -26,31 +22,23 @@ func newErrorResponse(c *gin.Context, statusCode int, errMessage string) {
 	c.AbortWithStatusJSON(statusCode, errorResponse{Message: errMessage})
 }
 
-func getMcuId(c *gin.Context) (int, error) {
-	id, ok := c.Get(mcuCtx)
-	if !ok {
-		return 0, errors.New("failed to get mcu Id")
-	}
-
-	idInt, ok := id.(int)
-	if !ok {
-		return 0, errors.New("invalid id")
-	}
-
-	return idInt, nil
-
-}
-
 func (h *Handler) getRecordById(c *gin.Context) {
 	const op = "handler.getAllRecords"
 
-	log := h.log.With(op)
+	log := h.log.With(slog.String("op", op))
+	idFromUrl, ok := c.Params.Get("id")
+	if !ok {
+		log.Error("failed to get id from url")
 
-	mcuId, err := getMcuId(c)
+		newErrorResponse(c, http.StatusBadRequest, "not given id")
+
+		return
+	}
+	mcuId, err := strconv.Atoi(idFromUrl)
 	if err != nil {
 		log.Error("failed to get mcuId", slog.Any("error", err))
 
-		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		newErrorResponse(c, http.StatusBadRequest, "invalid id")
 
 		return
 	}
@@ -71,7 +59,7 @@ func (h *Handler) getRecordById(c *gin.Context) {
 func (h *Handler) getAllRecords(c *gin.Context) {
 	const op = "handler.getAllRecords"
 
-	log := h.log.With(op)
+	log := h.log.With(slog.String("op", op))
 
 	records, err := h.services.GetAllRecords(context.Background())
 	if err != nil {
