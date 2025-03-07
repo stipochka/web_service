@@ -1,0 +1,107 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API Server for Neymark Project",
+        "title": "Neymark Mcu Web Service",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "collaboratorim.ru:8082",
+    "basePath": "/",
+    "paths": {
+        "/api/records": {
+            "get": {
+                "description": "records",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "records"
+                ],
+                "summary": "Records",
+                "responses": {
+                    "200": {
+                        "description": "record",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_stipochka_web_service_internal_models.Record"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handlers.errorResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handlers.errorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/records/:id": {
+            "get": {
+                "description": "records",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "records"
+                ],
+                "summary": "Records",
+                "responses": {
+                    "200": {
+                        "description": "record",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_stipochka_web_service_internal_models.Record"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handlers.errorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handlers.errorResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/internal_handlers.errorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "github_com_stipochka_web_service_internal_models.Record": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "internal_handlers.errorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -10,6 +10,13 @@ import (
 	"github.com/stipochka/web_service/internal/service"
 )
 
+// @title Neymark Mcu Web Service
+// @version 1.0
+// @description API Server for Neymark Project
+
+// @host collaboratorim.ru:8082
+// @BasePath /
+
 func main() {
 	cfg := config.MustLoad()
 

@@ -3,7 +3,11 @@ package handler
 import (
 	"log/slog"
 
+	_ "github.com/stipochka/web_service/docs"
 	"github.com/stipochka/web_service/internal/service"
+	swaggerfiles "github.com/swaggo/files"
+
+	ginSwagger "github.com/swaggo/gin-swagger"
 
 	"github.com/gin-gonic/gin"
 )
@@ -31,6 +35,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			records.GET("/:id", h.getRecordById)
 		}
 	}
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	return router
 }

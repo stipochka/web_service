@@ -22,6 +22,15 @@ func newErrorResponse(c *gin.Context, statusCode int, errMessage string) {
 	c.AbortWithStatusJSON(statusCode, errorResponse{Message: errMessage})
 }
 
+// @Summary Records
+// @Tags records
+// @Description records
+// @Produce json
+// @Success 200 {object} models.Record "record"
+// @Failure 400 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/records/:id [get]
 func (h *Handler) getRecordById(c *gin.Context) {
 	const op = "handler.getAllRecords"
 
@@ -56,6 +65,14 @@ func (h *Handler) getRecordById(c *gin.Context) {
 	c.JSON(http.StatusOK, record)
 }
 
+// @Summary Records
+// @Tags records
+// @Description records
+// @Produce json
+// @Success 200 {object} []models.Record "record"
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/records [get]
 func (h *Handler) getAllRecords(c *gin.Context) {
 	const op = "handler.getAllRecords"
 

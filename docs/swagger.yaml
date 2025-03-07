@@ -1,0 +1,70 @@
+basePath: /
+definitions:
+  github_com_stipochka_web_service_internal_models.Record:
+    properties:
+      data:
+        type: string
+      id:
+        type: integer
+    type: object
+  internal_handlers.errorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+host: collaboratorim.ru:8082
+info:
+  contact: {}
+  description: API Server for Neymark Project
+  title: Neymark Mcu Web Service
+  version: "1.0"
+paths:
+  /api/records:
+    get:
+      description: records
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: record
+          schema:
+            items:
+              $ref: '#/definitions/github_com_stipochka_web_service_internal_models.Record'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_handlers.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/internal_handlers.errorResponse'
+      summary: Records
+      tags:
+      - records
+  /api/records/:id:
+    get:
+      description: records
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: record
+          schema:
+            $ref: '#/definitions/github_com_stipochka_web_service_internal_models.Record'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_handlers.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_handlers.errorResponse'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/internal_handlers.errorResponse'
+      summary: Records
+      tags:
+      - records
+swagger: "2.0"

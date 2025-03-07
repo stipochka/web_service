@@ -149,6 +149,13 @@ func TestGetRecordByID(t *testing.T) {
 			expectedStatusCode: http.StatusInternalServerError,
 			expectedResponse:   map[string]interface{}{"message": "internal error"},
 		},
+		{
+			name:               "missing id",
+			urlIDParam:         "",
+			mockSetup:          func(m *mocks.GrpcClient) {},
+			expectedStatusCode: http.StatusBadRequest,
+			expectedResponse:   map[string]interface{}{"message": "not given id"},
+		},
 	}
 
 	for _, tc := range tests {
