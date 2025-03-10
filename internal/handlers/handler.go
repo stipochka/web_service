@@ -34,7 +34,10 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			records.GET("/", h.getAllRecords)
 			records.GET("/:id", h.getRecordById)
 		}
+
+		router.GET("/ws/records", h.getAllRecordsWebSocket)
 	}
+
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	return router

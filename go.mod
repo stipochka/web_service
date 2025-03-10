@@ -4,6 +4,7 @@ go 1.24.0
 
 require (
 	github.com/gin-gonic/gin v1.10.0
+	github.com/gorilla/websocket v1.5.3
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/stipochka/protos v0.0.0-20250217150740-6086ce0d43f0
 	github.com/stretchr/testify v1.10.0
