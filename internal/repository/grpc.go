@@ -40,7 +40,7 @@ func (g *gRPCclient) GetAllRecords(ctx context.Context) ([]models.Record, error)
 		return recordsRes, err
 	}
 
-	for _, record := range records.Record {
+	for _, record := range records.Records {
 		recordsRes = append(recordsRes, ToModelsRecord(record))
 	}
 
@@ -49,7 +49,27 @@ func (g *gRPCclient) GetAllRecords(ctx context.Context) ([]models.Record, error)
 
 func ToModelsRecord(rec *database.RecordResponse) models.Record {
 	return models.Record{
-		ID:   int(rec.GetId()),
-		Data: rec.GetData(),
+		ID:            int(rec.GetId()),
+		Status:        rec.GetStatus(),
+		PollingPeriod: int(rec.GetPollingPeriod()),
+		Temperature:   int(rec.GetTemperature()),
+		LampStatus:    rec.GetLampStatus(),
+		Voltage:       int(rec.GetVoltage()),
+		Thresholds: models.Thresholds{
+			Temperature: ToModelsSensorData(rec.GetThresholds().GetTemperature()),
+			Humidity:    ToModelsSensorData(rec.GetThresholds().GetHumidity()),
+			Voltage:     ToModelsSensorData(rec.GetThresholds().GetVoltage()),
+		},
 	}
+}
+
+func ToModelsSensorData(records []*database.SensorData) []models.SensorData {
+	res := make([]models.SensorData, 0)
+	for _, record := range records {
+		res = append(res, models.SensorData{
+			Value:         int(record.GetValue()),
+			PollingPeriod: int(record.GetPollingPeriod()),
+		})
+	}
+	return res
 }

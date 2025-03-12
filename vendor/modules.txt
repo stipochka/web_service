@@ -152,7 +152,7 @@ github.com/pelletier/go-toml/v2/unstable
 # github.com/pmezard/go-difflib v1.0.0
 ## explicit
 github.com/pmezard/go-difflib/difflib
-# github.com/stipochka/protos v0.0.0-20250217150740-6086ce0d43f0
+# github.com/stipochka/protos v0.0.0-20250311133842-425a7134ee49
 ## explicit; go 1.24.0
 github.com/stipochka/protos/gen/go/db
 # github.com/stretchr/objx v0.5.2

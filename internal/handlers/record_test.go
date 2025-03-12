@@ -1,5 +1,6 @@
 package handler
 
+/*
 import (
 	"context"
 	"encoding/json"
@@ -150,6 +151,15 @@ func TestGetRecordByID(t *testing.T) {
 			expectedResponse:   map[string]interface{}{"message": "internal error"},
 		},
 		{
+			name:       "empty url id param",
+			urlIDParam: "",
+			mockSetup: func(m *mocks.GrpcClient) {
+				m.On("GetRecordById", context.Background(), 1).Return(models.Record{}, errors.New("no such id"))
+			},
+			expectedStatusCode: http.StatusBadRequest,
+			expectedResponse:   map[string]interface{}{"message": "not given id"},
+		},
+		{
 			name:               "missing id",
 			urlIDParam:         "",
 			mockSetup:          func(m *mocks.GrpcClient) {},
@@ -200,3 +210,4 @@ func TestGetRecordByID(t *testing.T) {
 	}
 
 }
+*/

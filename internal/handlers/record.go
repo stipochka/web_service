@@ -101,6 +101,8 @@ func (h *Handler) getAllRecords(c *gin.Context) {
 	})
 }
 
+// @Summary Records
+// @Tags records
 func (h *Handler) getAllRecordsWebSocket(c *gin.Context) {
 	const op = "handler.getAllRecordsWebSocket"
 	log := h.log.With(slog.String("op", op))
